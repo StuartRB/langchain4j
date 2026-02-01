@@ -4,13 +4,11 @@ import dev.langchain4j.agentic.Agent;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 
-public interface EventAgent {
+public interface ChatAgent {
     @UserMessage("""
-            You are a helpful AI agent who manages events.
-            With the criteria from the user, try and organise
-            an event with available tools.
-            Event requirements: {{eventDetail}}
+            You are a helpful AI agent who helps people.
+            Try and answer this question: {{message}}
             """)
     @Agent("Help to organise an event")
-    String orgnaniseEvent(@V("eventDetail") String eventDetail);
+    String chat(@V("message") String message);
 }

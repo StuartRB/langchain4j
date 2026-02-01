@@ -1,34 +1,26 @@
 package com.example.langchain4j.service;
 
-import com.example.langchain4j.tools.calendar.CalendarTool;
-import com.example.langchain4j.tools.shop.ShopTool;
-import com.example.langchain4j.tools.weather.WeatherTool;
 import dev.langchain4j.agentic.AgenticServices;
 import dev.langchain4j.memory.ChatMemory;
-import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AgentService {
+public class ChatService {
 
     private final ChatModel chatModel;
-    private final WeatherTool weatherTool;
-    private final CalendarTool calendarTool;
-    private final ShopTool shopTool;
     private final ChatMemory chatMemory;
 
-    public String ask(String message) {
+    public String chat(String message) {
 
-        EventAgent eventAgent = AgenticServices.agentBuilder(EventAgent.class)
+        ChatAgent chatAgent = AgenticServices.agentBuilder(ChatAgent.class)
                 .chatModel(chatModel)
                 .chatMemory(chatMemory)
-                .tools(weatherTool, calendarTool, shopTool)
                 .build();
 
-        return eventAgent.orgnaniseEvent(message);
+        return chatAgent.chat(message);
     }
 }
 
